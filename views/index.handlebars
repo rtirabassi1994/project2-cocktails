@@ -1,0 +1,23 @@
+{{#if top5Drinks}}
+    {{>jumbotron}}
+    {{>navbar}}
+    {{>top5 top5Drinks=top5Drinks}}
+
+{{else}}
+    {{#if searchResults}}
+        {{>jumbotron}}
+        {{>navbar}}
+        {{>searchResults searchResults=searchResults}}
+    {{else}}
+        {{#if searchByIngredient}}
+            {{>jumbotron}}
+            {{>navbar}} 
+            {{>filterBy searchByIngredient=searchByIngredient}}
+
+            {{else}}
+                {{>jumbotron}}
+                {{>navbar}}
+                {{>featuredDrinks}}
+        {{/if}}
+    {{/if}}
+{{/if}}
