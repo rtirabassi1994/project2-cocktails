@@ -1,21 +1,23 @@
-<nav class= "navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">Home</a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="/top5">Most Popular Recipes</a>
-  </ul>
+  <div class="collapse navbar-collapse" data-toggle="collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/top5">Most Popular Recipes</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/db/savedDrinks">Saved Drinks</a>
+      </li>
+    </ul>
 
-<button class="btn btn-outline-secondary dropdown-toggle" id="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search by Category</button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" id="ingredient" href="#">Ingredient</a>
-    <a class="dropdown-item" id="cocktail" href="#">Cocktail</a>
-    <a class="dropdown-item" id="shot" href="#">Shot</a>
-    <a class="dropdown-item" id="party" href="#">Punch / Party Drink</a>
-  </div>
+    <select name="dropDownOptions" id="dropDownOptions" class="btn btn-secondary dropdown-toggle">
+      <option value="ingredients">Ingredients</option>
+      <option value="cocktails">Drinks</option>
+      <option value="shots">Shots</option>
+      <option value="punch_partyDrink">Punch / Party Drink</option>
+    </select>
 
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" id="cocktailSearch" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" id="search-btn" type="submit">Search</button>
-  </form>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" id="cocktailSearch" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" id="search-btn" type="submit">Search</button>
+    </form>
 </nav>

@@ -1,19 +1,22 @@
 <h1 class="subheader">Search Results</h1>
 
-  {{#each searchByIngredient}}
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{this.strDrinkThumb}}" alt="Card image cap">
-    <div class="card-body">
+
+{{#each searchData}}
+
+ 
+<div class="card" data="" id="{{this.idDrink}}" style="width: 18rem;">
+  <img class="card-img-top" src="{{this.strDrinkThumb}}" alt="Card image cap">
+  <div class="card-body">
     <div class="col text-center">
-      <a href =""><h5 class="card-title">{{this.strDrink}}</h5></a>
-        <a href="#" class="btn btn-primary">Save for Later</a>
-      </div>
+      <a href="">
+        <h5 class="card-title">{{this.strDrink}}</h5>
+      </a>
+      <a href="/savedDrinks" id="saveBtn" class="btn btn-primary">Save for Later</a>
     </div>
   </div>
-
-
-
-
 </div>
+</div>
+
 {{/each}}
 </div>
+

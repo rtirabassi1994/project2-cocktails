@@ -1,147 +1,139 @@
 var express = require("express");
 var path = require("path");
-
 var router = express.Router();
-
-// Import the model (cat.js) to use its database functions.
-// var cat = require("../models/cat.js");
 var apiCall = require("../api/apiCallTest");
 const API = require("../api/apiServices");
 const api = new API;
 
-// Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
+  apiCall.featuredDrinks().then(function(featuredDrinks) {
+    // console.log(featuredDrinks);
+    // console.log("THIS THAT SHIT YOU LOOKING FOR!!!!!!!");
+    res.status(200).render("index", {featuredDrinks});
+  });
   // cat.all(function(data) {
   //   var hbsObject = {
   //     cats: data
   //   };
     // console.log(hbsObject);
-    res.render("index");
   // });
 });
 
 router.get("/top5", function(req, res) {
-  // var top5Drinks = {};
-  // console.log("route top 5");
-  // console.log(res);
-  console.log("FUCK FACE FUCK FACE FUCK FACE");
+  console.log("-------");
   apiCall.getTop5().then(function(drinks) {
-    // console.log(top5Drinks);
     res.render("index", {top5Drinks: drinks});
   })
-
-
-  // apiCall.getTop5().then(function(drinksObj) {
-  //   top5Drinks = drinksObj;
-  //   // console.log(top5);
-  //   api.top5Drinks(top5Drinks).then(function(response) {
-  //     top5Drinks = response;
-  //     res.render("index")
-  //     // console.log(top5);
-  //   });
-  //   // console.log(drinksObj);
-  //   // res.render("index", {top5});
-  //   // return drinksObj = response;
-  // });
-  // console.log(drinksObj);
-
-  // console.log(hello);
-
-  // res.render("index", {top5: true});
-  // console.log("YOOOOOO");
-  // console.log(res);
-  // console.log(api);
 });
 
-// router.get("/search", function(req, res) {
-//   var searchResults = {};
-//   apiCall.searchDrinkName().then(function(response) {
-//     searchResults = response;
-//     console.log(response);
-    
-
-//     res.render("index", {searchResults});
-//   });
-// });
-
-// router.post("/api/cats", function(req, res) {
-//   cat.create([
-//     "name", "sleepy"
-//   ], [
-//     req.body.name, req.body.sleepy
-//   ], function(result) {
-//     // Send back the ID of the new quote
-//     res.json({ id: result.insertId });
-//   });
-// });
-
-// router.put("/api/cats/:id", function(req, res) {
-//   var condition = "id = " + req.params.id;
-
-//   console.log("condition", condition);
-
-//   cat.update({
-//     sleepy: req.body.sleepy
-//   }, condition, function(result) {
-//     if (result.changedRows == 0) {
-//       // If no rows were changed, then the ID must not exist, so 404
-//       return res.status(404).end();
-//     } else {
-//       res.status(200).end();
-//     }
-//   });
-// });
-
-// router.delete("/api/cats/:id", function(req, res) {
-//   var condition = "id = " + req.params.id;
-
-//   cat.delete(condition, function(result) {
-//     if (result.affectedRows == 0) {
-//       // If no rows were changed, then the ID must not exist, so 404
-//       return res.status(404).end();
-//     } else {
-//       res.status(200).end();
-//     }
-//   });
-// });
-
-router.get("/api/find/:searchParameter", function(req, res){
-  // console.log(req.params.searchParameter);
-  // console.log(req.body.searchParameters);
-  // console.log(req.query.searchInput);
-  var ingredientName = req.params.searchParameter;
-  var searchResults = {};
-  apiCall.searchIngredientName(ingredientName).then(function(response) {
-    searchResults = response;
-    // console.log(searchResults.ingredients[0].strIngredient);
-    // console.log({searchResults: response});
-    // console.log(response)
-    // console.log(response);
-    console.log({searchResults});
-    console.log(searchResults)
-
-    res.render("index", {searchResults});
-  });
-  });
-
-  router.get("/api/filter/:filterKeyword", function(req, res) {
-    // console.log(req.params.filterKeyword);
+  router.get("/api/ingredients/:filterKeyword", function(req, res) {
     var ingredientName = req.params.filterKeyword;
-    // console.log("what you actually looking for")
-    // console.log(ingredientName);
+    apiCall.filterByIngredient(ingredientName).then(function(drinks) {
+      // scary merge
+      res.status(200).render("index", {searchByIngredient: drinks});
+    });
+  });
+  router.get("/api/cocktails/:filterKeyword", function(req, res) {
+    var drinkName = req.params.filterKeyword;
+    var searchByDrinkName = {};
+    apiCall.filterByDrinkName(drinkName).then(function(drink) {
+      searchByDrinkName = drink;
+      // console.log(searchByDrinkName);
+      // have raman look
+      res.status(200).render("index", {searchByDrinkName});
+    });
+  });
+  router.get("/api/shots/:filterKeyword", function(req, res) {
+    var ingredientName = req.params.filterKeyword;
     var searchByIngredient = {};
     apiCall.filterByIngredient(ingredientName).then(function(response) {
-      // console.log("What You're looking for");
-      // console.log(response.drinks);
+      searchByIngredient = response;
+      console.log(searchByIngredient);
+      res.status(200).render("index", {searchByIngredient});
+    });
+  });
+  router.get("/api/punch_partyDrink/:filterKeyword", function(req, res) {
+    var ingredientName = req.params.filterKeyword;
+    var searchByIngredient = {};
+    apiCall.filterByIngredient(ingredientName).then(function(response) {
       searchByIngredient = response;
       console.log(searchByIngredient);
       res.render("index", {searchByIngredient});
     });
   });
-  
 
-// Export routes for server.js to use.
+  // i added all of this
+  router.post("/api/drinks/create", function(req, res) {
+    // console.log(req.query.drinkId);
+    var drinkId = req.body.drinkId;
+    apiCall.filterByDrinkId(drinkId).then(function(drinkObj) {
+      console.log("LOOK OVER HERE ASS FACE!!!!!!!!!");
+      // console.log(drinkObj);
+      db.saveDrink(drinkObj).then(function() {
+        // res.status(200).redirect("/api/savedDrinks");
+        res.status(200).render("");
+      });
+    });
+
+  });
+
+  router.get("/db/savedDrinks",function(req, res) {
+    // var savedDrinkDetails = [];
+    db.showSaved()
+    .then(function(drinkIds) {
+      // return new Promise(function(resolve, reject) {
+        return new Promise(function(resolve, reject) {
+          drinkIds.map((id) => {
+            resolve(apiCall.filterByDrinkId(id));
+          })
+        });
+        // drinkIds.map((id) => {
+        //   return new Promise(function(resolve,reject) {
+        //     resolve(apiCall.filterByDrinkId(id));
+        //   });
+        // }));
+        // return savedDrinkDetails = drinkIds.map((id) => {
+        //   apiCall.filterByDrinkId(id).then(function(response) {
+        //     savedDrinkDetails.push(response);
+        //   });
+        // });
+        // console.log(savedDrinkDetails);
+
+        // for(var i = 0; i < drinkIds.length; i++) {
+        //   apiCall.filterByDrinkId(drinkIds[i]).then(function(response) {
+        //     savedDrinkDetails.push(response);
+        //     return savedDrinkDetails;
+        //     // console.log(response);
+        //     // console.log("What you're looking for!!!!!!!!!!!!!!!")
+        //   });
+        //   // .then(function(savedDrinks) {
+        //   //   // console.log(savedDrinkDetails);
+        //   //   console.log(savedDrinkDetails[0])
+        //   //   console.log("THIS IS IT")
+        //   //   return savedDrinks;
+        //   //   // res.render("index", {savedDrinkDetails});
+        //   //   // console.log(response);
+        //   //   // console.log(savedDrinkDetails);
+        //   // });
+        // }
+        // return savedDrinkDetails;
+      // });
+      // .then(function(response) {
+      //   console.log(response);
+      // });
+
+      // return savedDrinkDetails;
+      // console.log(savedDrinkDetails);
+      // return hello
+      // console.log(savedDrinkDetails);
+      // return savedDrinkDetails;
+      // apiCall.filterByDrinkId()
+    }).then(function(response) {
+      console.log(response);
+    });
+    // .then(function(response) {
+    //   console.log(response);
+    // });
+  });
+
 module.exports = router;
-
-
-

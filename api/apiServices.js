@@ -1,9 +1,6 @@
 class API {
     top5Drinks(response) {
-        // console.log("AHHHHHHHHHH YAAAAAAAA!!!!");
-        // console.log(response.drinks);
         var drinksTable = response.drinks;
-          // console.log(response.data.drinks.length);
           var drinks = [];
           var drinkNames = [];
           for(var i = 0; i < 5; i++) {

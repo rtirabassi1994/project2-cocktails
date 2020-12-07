@@ -1,23 +1,28 @@
-{{#if top5Drinks}}
-    {{>jumbotron}}
+ {{>jumbotron}}
     {{>navbar}}
+
+
+{{#if top5Drinks}}
     {{>top5 top5Drinks=top5Drinks}}
-
-{{else}}
-    {{#if searchResults}}
-        {{>jumbotron}}
-        {{>navbar}}
-        {{>searchResults searchResults=searchResults}}
-    {{else}}
-        {{#if searchByIngredient}}
-            {{>jumbotron}}
-            {{>navbar}} 
-            {{>filterBy searchByIngredient=searchByIngredient}}
-
-            {{else}}
-                {{>jumbotron}}
-                {{>navbar}}
-                {{>featuredDrinks}}
-        {{/if}}
     {{/if}}
-{{/if}}
+
+    {{#if searchResults}}
+     
+        {{>searchResults searchResults=searchResults}}
+        {{/if}}
+    
+        {{#if searchByIngredient}}
+            {{>filterBy searchData=searchByIngredient}}
+            {{/if}}
+        {{#if searchByDrinkName}}
+            {{>filterBy searchData=searchByDrinkName}}
+            {{else}}
+                
+            {{/if}}
+        {{#if featuredDrinks}}
+         
+            {{>featuredDrinks featuredDrinks=featuredDrinks}}
+        {{/if}}
+
+
+         {{>footer}}

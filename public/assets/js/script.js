@@ -1,120 +1,66 @@
 var searchInput;
 
-// dropdown function- Joe
-$(function () {
-  $(".dropdown-menu").on('click', 'a', function () {
-      $("#dropdown").text($(this).text());
-      $("#dropdown").val($(this).text());
-  });
-});
 
 
 $(function () {
-  $("#search-btn").on("click", function(e) {
+  $("#search-btn").on("click", function (e) {
+    var dropDownOption = $("#dropDownOptions :selected").val();
     var searchInput = $("#cocktailSearch").val();
     e.preventDefault();
     $.ajax({
-        type: "GET",
-        url: `/api/filter/${searchInput}`,
-        // data: { 
-        //     searchInput: $("#cocktailSearch").val()
-        // },
-        success: function(result) {
-          console.log();
-          // location.reload(result);
-          // window.location.reload();
-          window.location.replace(`/api/filter/${searchInput}`);
-        },
-        error: function(result) {
-            alert('error');
-        }
-    });
-});
-
-
-
-
-
-$("#searchByIngredient").on("click", function(e) {
-  e.preventDefault();
-
-  var searchInput = $("#cocktailSearch").val();
-  // console.log(searchInput);
-  $.ajax({
       type: "GET",
-      url: `/api/filter/${searchInput}`,
-      // data: { 
-      //     searchInput: $("#cocktailSearch").val()
-      // },
-      success: function(result) {
-        // console.log(result);
-        // location.reload(result);
-        // window.location.reload();
-        window.location.replace(`/api/filter/${searchInput}`);
+      url: `/api/${dropDownOption}/${searchInput}`,
+      success: function (result) {
+        window.location.replace(`/api/${dropDownOption}/${searchInput}`);
       },
-      error: function(result) {
-          alert('error');
+      error: function (result) {
+        alert('error');
       }
+    });
   });
 });
 
+// $(function () {
+//   $("#saveBtn").on("click", function (e) {
+//     var drinkId = $("#dropDownOptions :selected").val();
+//     var searchInput = $("#cocktailSearch").val();
+//     e.preventDefault();
+//     $.ajax({
+//       type: "GET",
+//       url: `/api/${dropDownOption}/${searchInput}`,
+//       success: function (result) {
+//         window.location.replace(`/api/${dropDownOption}/${searchInput}`);
+//       },
+//       error: function (result) {
+//         alert('error');
+//       }
+//     });
+//   });
+// });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // $("#search-btn").on("click", function (event) {
-  //   // event.preventDefault();
-  //   // console.log(event);
-  //   // console.log("===============");
-  //   var searchParameters = {
-  //     searchInput: "",
-  //     dropDown: ""
-  //   }
-  //   var eggs = $(".dropdown-menu [.dropdown-item]").val();
-
-    // searchParameters.searchInput = $("#cocktailSearch").val();
-    
-  //   // console.log(obj.searchInput);
-
-  //   $.ajax("/api/find", {
-  //     type: "GET",
-  //     data: searchParameters
-  //   }).then(function (result) {
-  //       console.log("---");
-  //       console.log(result);
-
-  //       console.log("---");
-  //       // location.reload(result);
-  //     }
-  //   );
-  // });
-
-  // $("#top5Drinks").on("click", function (event) {
-  //   // event.preventDefault();
-  //   console.log("===============");
-
-  //   $.get("/top5", function(data) {
-  //     // location.reload();
-  //     // console.log(data);
-
-  //   });
-
-
-  // });
-
+$(function () {
+  $(".saveBtn").on("click", function (e) {
+    // e.preventDefault();
+    console.log(e);
+    // console.log("hello bitch face");
+    // var drinkId = $(this.id);
+    // console.log(drinkId);
+    console.log(this.id);
+    var searchInput = $("#cocktailSearch").val();
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: `/api/drinks/create`,
+      data: {
+        drinkId: this.id
+      },
+      success: function (result) {
+        // window.location.replace(`/api/savedDrinks`);
+      },
+      error: function (result) {
+        alert('error');
+      }
+    });
+  });
 });

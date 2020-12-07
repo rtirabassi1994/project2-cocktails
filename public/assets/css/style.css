@@ -2,16 +2,16 @@
   min-height: 500px;
 } */
 
-/* html{
-  background-image: linear-gradient(rgb(6, 33, 54), rgb(154, 196, 230));
-} */
+  /* body {
+  background-image: linear-gradient(rgb(6, 33, 54), rgb(154, 196, 230)); */
+/* } */ 
 
-body{
-  background-image: linear-gradient(rgb(1, 15, 26), rgb(154, 196, 230));
-}
+/* body {
+  background-color: black;
+}  */
 
 
-.jumbotron {
+.jumbotron-header {
   margin-left: auto;
   margin-right: auto;
   background-image: url("../img/newimage-size.png");
@@ -57,21 +57,82 @@ body{
 }
 
 .card {
-  margin-left: auto!important;
-  margin-right: auto!important;
   display:inline-block!important;
-  /* margin-bottom: 50px!important; */
-  margin-top: 50px!important;
+  margin-top: 25px!important;
   padding-right: 25px!important;
   padding-left: 25px!important;
 
 }
 
-.dropdown-menu {
-  position: absolute!important;
-  right: 0!important;
+.carousel {
+  width:640px;
+  height:360px;
+  margin-left: auto!important;
+  margin-right: auto!important;
 }
 
-/* .container {
-  display:inline-block!important;
+/* .carousel-item {
+  width:100%;
 } */
+
+
+ml-auto, .mx-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto, .mx-auto {
+  margin-right: auto !important;
+}
+
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+.carousel-indicators {
+  bottom: -50px;
+}
+
+.carousel-caption {
+  background-color: hsla(360,0%,0%,0.5);
+}
+
+.carousel-caption:hover {
+  background-color: hsla(360,0%,0%,0.7);
+}
+
+.view-recipe {
+  color: rgb(71, 209, 101);
+}
+
+.jumbsize {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width:900px;
+  height:640px;
+  background-color:rgb(71, 209, 101)!important;
+  border: 5px;
+  border-style: solid;
+  border-color: white;
+}
+
+.subheader-footer {
+  font-family: 'Major Mono Display', monospace;
+  padding-bottom: 25px;
+}
+
+.resources {
+  padding-bottom: 25px;
+}
+
+.makegreen {
+  color: rgb(71, 209, 101);
+}
+
+.details-jumb {
+  background-color:rgb(71, 209, 101)!important;
+  border: 5px;
+  border-style: solid;
+  border-color: white;
+  color: white;
+}
